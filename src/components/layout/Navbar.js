@@ -12,7 +12,7 @@ const Navbar = ({ icon, title }) => {
 };
 
 Navbar.defaultProps = {
-  title: "Xbox Live Finder",
+  title: "Xbox Live Friends",
   icon: "fab fa-xbox",
 };
 
