@@ -1,8 +1,16 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 export class Search extends Component {
   state = {
     text: "",
+  };
+
+  static propTypes = {
+    searchFriends: PropTypes.func.isRequired,
+    showAllFriends: PropTypes.func.isRequired,
+    clearFriends: PropTypes.func.isRequired,
+    showClear: PropTypes.bool.isRequired,
   };
 
   onSubmit = (e) => {
@@ -14,6 +22,7 @@ export class Search extends Component {
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
   render() {
+    const { showClear, clearFriends, showAllFriends } = this.props;
     return (
       <div>
         <form onSubmit={this.onSubmit} className="form">
@@ -30,6 +39,21 @@ export class Search extends Component {
             className="btn btn-dark btn-block"
           />
         </form>
+        <div>
+          <div>
+            <button
+              className="btn btn-primary btn-block"
+              onClick={showAllFriends}
+            >
+              Show All Friends
+            </button>
+          </div>
+        </div>
+        {showClear && (
+          <button className="btn btn-dark btn-block" onClick={clearFriends}>
+            Clear
+          </button>
+        )}
       </div>
     );
   }

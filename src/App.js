@@ -21,7 +21,6 @@ class App extends Component {
       }
     );
     this.setState({ users: res.data, loading: false });
-    this.baseState = this.State;
   }
 
   // Search Xbox Live Friends List
@@ -40,13 +39,36 @@ class App extends Component {
     this.setState({ users: result, loading: false });
   };
 
+  // Show all friends
+  showAllFriends = async () => {
+    this.setState({ loading: true });
+
+    const res = await axios.get(
+      `https://xapi.us/v2/${process.env.REACT_APP_XAPI_USER_ID}/friends`,
+      {
+        headers: { "X-Auth": `${process.env.REACT_APP_XAPI_KEY}` },
+      }
+    );
+    this.setState({ users: res.data, loading: false });
+  };
+
+  // Clear friends results
+
+  clearFriends = () => this.setState({ users: [], loading: false });
+
   render() {
+    const { users, loading } = this.state;
     return (
       <div className="App">
         <Navbar />
         <div className="container">
-          <Search searchFriends={this.searchFriends} />
-          <Users loading={this.state.loading} users={this.state.users} />
+          <Search
+            searchFriends={this.searchFriends}
+            showAllFriends={this.showAllFriends}
+            clearFriends={this.clearFriends}
+            showClear={users.length > 0 ? true : false}
+          />
+          <Users loading={loading} users={users} />
         </div>
       </div>
     );
