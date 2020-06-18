@@ -34,14 +34,11 @@ class App extends Component {
         headers: { "X-Auth": `${process.env.REACT_APP_XAPI_KEY}` },
       }
     );
-    var result = res.data.filter((item) => item.Gamertag === text);
+    var result = res.data.filter((item) =>
+      item.Gamertag.toUpperCase().includes(text.toUpperCase())
+    );
     this.setState({ users: result, loading: false });
   };
-
-  async resetFriends() {
-    this.setState({ loading: true });
-    this.setState(this.baseState);
-  }
 
   render() {
     return (
