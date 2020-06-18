@@ -11,12 +11,17 @@ export class Search extends Component {
     showAllFriends: PropTypes.func.isRequired,
     clearFriends: PropTypes.func.isRequired,
     showClear: PropTypes.bool.isRequired,
+    setAlert: PropTypes.func.isRequired,
   };
 
   onSubmit = (e) => {
     e.preventDefault();
-    this.props.searchFriends(this.state.text);
-    //this.setState({ text: "" });
+    if (this.state.text === "") {
+      this.props.setAlert("No serch criteria entered", "light");
+    } else {
+      this.props.searchFriends(this.state.text);
+      //this.setState({ text: "" });
+    }
   };
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
