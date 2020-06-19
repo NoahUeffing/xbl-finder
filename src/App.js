@@ -35,10 +35,10 @@ class App extends Component {
         headers: { "X-Auth": `${process.env.REACT_APP_XAPI_KEY}` },
       }
     );
-    var result = res.data.filter((item) =>
+    var searchResult = res.data.filter((item) =>
       item.Gamertag.toUpperCase().includes(text.toUpperCase())
     );
-    this.setState({ users: result, loading: false });
+    this.setState({ users: searchResult, loading: false });
   };
 
   // Show all friends
@@ -62,7 +62,7 @@ class App extends Component {
   setAlert = (msg, type) => {
     this.setState({ alert: { msg, type } });
 
-    // change this to have an x button instead of timeout
+    // TODO: change this to have an x button instead of timeout
     setTimeout(() => this.setState({ alert: null }), 5000);
   };
 

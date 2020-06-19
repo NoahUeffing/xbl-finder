@@ -1,5 +1,6 @@
 import React from "react";
 
+// TODO: Add a dismiss button
 export const Alert = ({ alert }) => {
   return (
     alert !== null && (
