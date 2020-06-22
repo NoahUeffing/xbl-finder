@@ -80,6 +80,7 @@ class App extends Component {
             showClear={users.length > 0 ? true : false}
             setAlert={this.setAlert}
           />
+          <Users loading={loading} users={users} />
         </div>
       </div>
     );
