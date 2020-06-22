@@ -66,6 +66,7 @@ class App extends Component {
     setTimeout(() => this.setState({ alert: null }), 5000);
   };
 
+  // testing protected github branches
   render() {
     const { users, loading } = this.state;
     return (
