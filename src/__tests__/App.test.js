@@ -2,8 +2,6 @@ import React from "react";
 import { shallow } from "enzyme";
 import toJson from "enzyme-to-json";
 import { App } from "../App";
-import Users from "../components/users/Users";
-import Search from "../components/users/Search";
 
 describe("App", () => {
   it("renders without crashing given the required props", () => {
@@ -18,7 +16,7 @@ describe("App", () => {
   });
 });
 
-it("renders the Search when the loading prop is false", () => {
+it("renders the Alert when the loading prop is false", () => {
   const props = {
     loading: false,
     dispatch: jest.fn(),
@@ -26,7 +24,7 @@ it("renders the Search when the loading prop is false", () => {
     users: [],
   };
   const wrapper = shallow(<App {...props} />);
-  expect(wrapper.find("Search").length).toBe(1);
+  expect(wrapper.find("Alert").length).toBe(1);
 });
 
 it("renders the Navbar when the loading prop is false", () => {
@@ -40,7 +38,7 @@ it("renders the Navbar when the loading prop is false", () => {
   expect(wrapper.find("Navbar").length).toBe(1);
 });
 
-it("renders the Users when the loading prop is false", () => {
+it("renders the Switch when the loading prop is false", () => {
   const props = {
     loading: false,
     dispatch: jest.fn(),
@@ -48,7 +46,7 @@ it("renders the Users when the loading prop is false", () => {
     users: [],
   };
   const wrapper = shallow(<App {...props} />);
-  expect(wrapper.find("Users").length).toBe(1);
+  expect(wrapper.find("Switch").length).toBe(1);
 });
 
 it("sets the users prop as the `value` prop on the Users component", () => {
@@ -59,9 +57,9 @@ it("sets the users prop as the `value` prop on the Users component", () => {
     users: [],
   };
   const wrapper = shallow(<App {...props} />);
-  // Query for the Users component in the rendered output
-  const UsersComponent = wrapper.find(Users);
-  expect(UsersComponent.props().users).toEqual(props.users);
+  const instance = wrapper.instance();
+  instance.componentDidMount();
+  expect(wrapper.state("users")).toEqual(props.users);
 });
 
 it("sets the Apps alert as the `value` prop on the App component", () => {
