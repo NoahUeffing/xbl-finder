@@ -72,3 +72,4 @@ it("sets the Apps alert as the `value` prop on the App component", () => {
   const wrapper = shallow(<App {...props} />);
   expect(wrapper.state("alert")).toEqual(props.alert);
 });
+// p
