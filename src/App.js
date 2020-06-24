@@ -5,6 +5,7 @@ import Users from "./components/users/Users";
 import Search from "./components/users/Search";
 import Alert from "./components/layout/Alert";
 import About from "./components/pages/About";
+import MyInfo from "./components/pages/MyInfo";
 import axios from "axios";
 import "./App.css";
 
@@ -13,19 +14,38 @@ class App extends Component {
     users: [],
     loading: false,
     alert: null,
+    myInfo: [],
   };
 
   async componentDidMount() {
     this.setState({ loading: true });
 
-    const res = await axios.get(
+    const friends = await axios.get(
       `https://xapi.us/v2/${process.env.REACT_APP_XAPI_USER_ID}/friends`,
       {
         headers: { "X-Auth": `${process.env.REACT_APP_XAPI_KEY}` },
       }
     );
-    this.setState({ users: res.data, loading: false });
+    const myInfo = await axios.get(
+      `https://xapi.us/v2/${process.env.REACT_APP_XAPI_USER_ID}/gamercard`,
+      {
+        headers: { "X-Auth": `${process.env.REACT_APP_XAPI_KEY}` },
+      }
+    );
+    this.setState({ users: friends.data, myInfo: myInfo.data, loading: false });
   }
+
+  getMyInfo = async () => {
+    this.setState({ loading: true });
+
+    const res = await axios.get(
+      `https://xapi.us/v2/${process.env.REACT_APP_XAPI_USER_ID}/gamercard`,
+      {
+        headers: { "X-Auth": `${process.env.REACT_APP_XAPI_KEY}` },
+      }
+    );
+    this.setState({ myInfo: res.data, loading: false });
+  };
 
   // Search Xbox Live Friends List
 
@@ -68,9 +88,8 @@ class App extends Component {
     setTimeout(() => this.setState({ alert: null }), 5000);
   };
 
-  // testing protected github branches
   render() {
-    const { users, loading } = this.state;
+    const { users, loading, myInfo } = this.state;
     return (
       <Router>
         <div className="App">
@@ -95,6 +114,11 @@ class App extends Component {
                 )}
               />
               <Route exact path="/about" component={About} />
+              <Route
+                exact
+                path="/myInfo"
+                render={(props) => <MyInfo loading={loading} myInfo={myInfo} />}
+              />
             </Switch>
           </div>
         </div>
