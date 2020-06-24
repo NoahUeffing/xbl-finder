@@ -413,3 +413,7 @@ table th {
     justify-content: center;
   }
 }
+
+.vertical-middle {
+  vertical-align: middle;
+}

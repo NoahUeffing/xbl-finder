@@ -26,6 +26,11 @@ exports[`App renders without crashing given the required props 1`] = `
           exact={true}
           path="/about"
         />
+        <Route
+          exact={true}
+          path="/myInfo"
+          render={[Function]}
+        />
       </Switch>
     </div>
   </div>

@@ -13,6 +13,9 @@ const Navbar = ({ icon, title }) => {
           <Link to="/">Friend Search</Link>
         </li>
         <li>
+          <Link to="/myInfo">My Info</Link>
+        </li>
+        <li>
           <Link to="/about">About</Link>
         </li>
       </ul>
