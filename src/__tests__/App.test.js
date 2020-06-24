@@ -62,6 +62,18 @@ it("sets the users prop as the `value` prop on the Users component", () => {
   expect(wrapper.state("users")).toEqual(props.users);
 });
 
+it("sets the myInfo prop as the `value` prop on the MyInfo component", () => {
+  const props = {
+    loading: false,
+    dispatch: jest.fn(),
+    myInfo: [],
+  };
+  const wrapper = shallow(<App {...props} />);
+  const instance = wrapper.instance();
+  instance.componentDidMount();
+  expect(wrapper.state("myInfo")).toEqual(props.myInfo);
+});
+
 it("sets the Apps alert as the `value` prop on the App component", () => {
   const props = {
     loading: false,
