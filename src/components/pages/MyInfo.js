@@ -27,9 +27,16 @@ const MyInfo = ({
   if (loading) {
     return <Spinner />;
   } else {
+    // for now, redirects to main page if api calls are not finished
+    // to avoid crashing
+    // TODO: seperate each api call from main page to just call when
+    // acessing the page you want to view
+    if (typeof presenceDetails == "undefined") {
+      window.location.replace("http://localhost:3000/");
+    }
     return (
       <Fragment>
-        <div className="text-center vertical-middle">
+        <div className="text-center vertical-middle p-2">
           <img
             src={displayPicRaw}
             alt=""
