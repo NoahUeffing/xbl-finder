@@ -15,6 +15,7 @@ class App extends Component {
     loading: false,
     alert: null,
     myInfo: [],
+    newProfile: [],
   };
 
   async componentDidMount() {
@@ -26,13 +27,24 @@ class App extends Component {
         headers: { "X-Auth": `${process.env.REACT_APP_XAPI_KEY}` },
       }
     );
-    const myInfo = await axios.get(
+    const selfInfo = await axios.get(
       `https://xapi.us/v2/${process.env.REACT_APP_XAPI_USER_ID}/gamercard`,
       {
         headers: { "X-Auth": `${process.env.REACT_APP_XAPI_KEY}` },
       }
     );
-    this.setState({ users: friends.data, myInfo: myInfo.data, loading: false });
+    const selfProfile = await axios.get(
+      `https://xapi.us/v2/${process.env.REACT_APP_XAPI_USER_ID}/new-profile`,
+      {
+        headers: { "X-Auth": `${process.env.REACT_APP_XAPI_KEY}` },
+      }
+    );
+    this.setState({
+      users: friends.data,
+      myInfo: selfInfo.data,
+      loading: false,
+      newProfile: selfProfile.data,
+    });
   }
 
   getMyInfo = async () => {
@@ -45,6 +57,18 @@ class App extends Component {
       }
     );
     this.setState({ myInfo: res.data, loading: false });
+  };
+
+  getNewProfile = async () => {
+    this.setState({ loading: true });
+
+    const res = await axios.get(
+      `https://xapi.us/v2/${process.env.REACT_APP_XAPI_USER_ID}/new-profile`,
+      {
+        headers: { "X-Auth": `${process.env.REACT_APP_XAPI_KEY}` },
+      }
+    );
+    this.setState({ newProfile: res.data, loading: false });
   };
 
   // Search Xbox Live Friends List
@@ -89,7 +113,7 @@ class App extends Component {
   };
 
   render() {
-    const { users, loading, myInfo } = this.state;
+    const { users, loading, myInfo, newProfile } = this.state;
     return (
       <Router>
         <div className="App">
@@ -117,7 +141,13 @@ class App extends Component {
               <Route
                 exact
                 path="/myInfo"
-                render={(props) => <MyInfo loading={loading} myInfo={myInfo} />}
+                render={(props) => (
+                  <MyInfo
+                    loading={loading}
+                    myInfo={myInfo}
+                    newProfile={newProfile}
+                  />
+                )}
               />
             </Switch>
           </div>

@@ -8,11 +8,19 @@ const MyInfo = ({
     gamerpicLargeImagePath,
     gamertag,
     gamerscore,
-    name,
     location,
     bio,
     motto,
     tier,
+  },
+  newProfile: {
+    realName,
+    displayPicRaw,
+    xboxOneRep,
+    presenceState,
+    presenceText,
+    presenceDetails,
+    detail,
   },
   loading,
 }) => {
@@ -22,6 +30,12 @@ const MyInfo = ({
     return (
       <Fragment>
         <div className="text-center vertical-middle">
+          <img
+            src={displayPicRaw}
+            alt=""
+            className="img"
+            style={{ width: "150px" }}
+          />
           <img
             src={gamerpicLargeImagePath}
             alt=""
@@ -38,15 +52,29 @@ const MyInfo = ({
                 height: "15px",
               }}
             />
-            <h2 style={{ paddingLeft: "0.25em", display: "inline" }}>
+            <h2
+              style={{
+                paddingLeft: "0.25em",
+                display: "inline",
+              }}
+            >
               {gamerscore}
             </h2>
           </div>
-          <h3>Name: {name}</h3>
-          <h3>Location: {location}</h3>
-          <h3>Bio: {bio}</h3>
-          <h3>Motto: {motto}</h3>
-          <h3>Membership Type: {tier}</h3>
+          <div style={{ overflow: "auto", paddingTop: "0.5em" }}>
+            <h2>Currently {presenceState}</h2>
+            <h3>
+              {presenceText} on {presenceDetails[0].Device}
+            </h3>
+            <h3>Name: {realName}</h3>
+            <h3>Location: {location}</h3>
+            <h3>Followers: {detail.followerCount}</h3>
+            <h3>Following: {detail.followingCount}</h3>
+            <h3>Bio: {bio}</h3>
+            <h3>Motto: {motto}</h3>
+            <h3>Reputation: {xboxOneRep}</h3>
+            <h3>Membership Type: {tier}</h3>
+          </div>
         </div>
       </Fragment>
     );
@@ -56,6 +84,7 @@ const MyInfo = ({
 MyInfo.PropTypes = {
   myInfo: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
+  newProfile: PropTypes.array.isRequired,
 };
 
 export default MyInfo;
