@@ -48,6 +48,19 @@ img {
   padding: 0 2rem;
 }
 
+.flex-container {
+  display: flex;
+  flex-direction: column;
+}
+
+#parent {
+  width: 40%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 /* Text Styles*/
 .x-large {
   font-size: 4rem;
@@ -96,6 +109,10 @@ img {
 
 .text-left {
   text-align: left;
+}
+
+.padding-top {
+  padding-top: 1rem;
 }
 
 /* Center All */

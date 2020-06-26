@@ -36,11 +36,11 @@ const MyInfo = ({
     }
     return (
       <Fragment>
-        <div className="text-center vertical-middle p-2">
+        <div className="text-center vertical-middle p-2 card">
           <img
             src={displayPicRaw}
             alt=""
-            className="img"
+            className="img round-img"
             style={{ width: "150px" }}
           />
           <img
@@ -50,6 +50,7 @@ const MyInfo = ({
             style={{ width: "150px" }}
           />
           <h1>{gamertag}</h1>
+          <h3>{realName}</h3>
           <div style={{ overflow: "auto" }}>
             <img
               src={Icon_gamerscore}
@@ -68,19 +69,33 @@ const MyInfo = ({
               {gamerscore}
             </h2>
           </div>
-          <div style={{ overflow: "auto", paddingTop: "0.5em" }}>
+          <div>
             <h2>Currently {presenceState}</h2>
             <h3>
               {presenceText} on {presenceDetails[0].Device}
             </h3>
-            <h3>Name: {realName}</h3>
-            <h3>Location: {location}</h3>
-            <h3>Followers: {detail.followerCount}</h3>
-            <h3>Following: {detail.followingCount}</h3>
-            <h3>Bio: {bio}</h3>
-            <h3>Motto: {motto}</h3>
-            <h3>Reputation: {xboxOneRep}</h3>
-            <h3>Membership Type: {tier}</h3>
+          </div>
+          <div>
+            <div id="parent" className="text-left padding-top">
+              <div className="flex-container">
+                <h3>Location</h3>
+                <h3>{location}</h3>
+              </div>
+              <div className="flex-container">
+                <h3>Followers</h3>
+                <h3>{detail.followerCount}</h3>
+              </div>
+              <div className="flex-container">
+                <h3>Friends</h3>
+                <h3>{detail.followingCount}</h3>
+              </div>
+            </div>
+            <div className="padding-top">
+              <h3>Bio: {bio}</h3>
+              <h3>Motto: {motto}</h3>
+              <h3>Reputation: {xboxOneRep}</h3>
+              <h3>Membership Type: {tier}</h3>
+            </div>
           </div>
         </div>
       </Fragment>
