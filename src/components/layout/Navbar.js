@@ -16,6 +16,12 @@ const Navbar = ({ icon, title }) => {
           <Link to="/myInfo">My Info</Link>
         </li>
         <li>
+          <Link to="/myXboxOneGames">My Xbox One Games</Link>
+        </li>
+        <li>
+          <Link to="/myXbox360Games">My Xbox 360 Games</Link>
+        </li>
+        <li>
           <Link to="/about">About</Link>
         </li>
       </ul>

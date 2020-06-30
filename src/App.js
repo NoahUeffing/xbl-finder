@@ -6,6 +6,8 @@ import Search from "./components/users/Search";
 import Alert from "./components/layout/Alert";
 import About from "./components/pages/About";
 import MyInfo from "./components/pages/MyInfo";
+import MyXbox360Games from "./components/pages/MyXbox360Games";
+import MyXboxOneGames from "./components/pages/MyXboxOneGames";
 import axios from "axios";
 import "./App.css";
 
@@ -16,6 +18,8 @@ class App extends Component {
     alert: null,
     myInfo: [],
     newProfile: [],
+    xboxOneGames: [],
+    xbox360Games: [],
   };
 
   async componentDidMount() {
@@ -39,11 +43,26 @@ class App extends Component {
         headers: { "X-Auth": `${process.env.REACT_APP_XAPI_KEY}` },
       }
     );
+    const xboxOne = await axios.get(
+      `https://xapi.us/v2/${process.env.REACT_APP_XAPI_USER_ID}/xboxonegames`,
+      {
+        headers: { "X-Auth": `${process.env.REACT_APP_XAPI_KEY}` },
+      }
+    );
+    const xbox360 = await axios.get(
+      `https://xapi.us/v2/${process.env.REACT_APP_XAPI_USER_ID}/xbox360games`,
+      {
+        headers: { "X-Auth": `${process.env.REACT_APP_XAPI_KEY}` },
+      }
+    );
+
     this.setState({
       users: friends.data,
       myInfo: selfInfo.data,
       loading: false,
       newProfile: selfProfile.data,
+      xboxOneGames: xboxOne.data,
+      xbox360Games: xbox360.data,
     });
   }
 
@@ -113,7 +132,14 @@ class App extends Component {
   };
 
   render() {
-    const { users, loading, myInfo, newProfile } = this.state;
+    const {
+      users,
+      loading,
+      myInfo,
+      newProfile,
+      xboxOneGames,
+      xbox360Games,
+    } = this.state;
     return (
       <Router>
         <div className="App">
@@ -146,6 +172,28 @@ class App extends Component {
                     loading={loading}
                     myInfo={myInfo}
                     newProfile={newProfile}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/myXboxOneGames"
+                render={(props) => (
+                  <MyXboxOneGames
+                    loading={loading}
+                    games={xboxOneGames}
+                    player={newProfile}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/myXbox360Games"
+                render={(props) => (
+                  <MyXbox360Games
+                    loading={loading}
+                    games={xbox360Games}
+                    player={myInfo}
                   />
                 )}
               />
