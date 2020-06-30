@@ -8,8 +8,12 @@ describe("App", () => {
     const props = {
       loading: false,
       dispatch: jest.fn(),
-      alert: null,
       users: [],
+      alert: null,
+      myInfo: [],
+      newProfile: [],
+      xboxOneGames: [],
+      xbox360Games: [],
     };
     const wrapper = shallow(<App {...props} />);
     expect(toJson(wrapper)).toMatchSnapshot();
@@ -95,4 +99,30 @@ it("sets the newProfile prop as the `value` prop on the MyInfo component", () =>
   const instance = wrapper.instance();
   instance.componentDidMount();
   expect(wrapper.state("newProfile")).toEqual(props.newProfile);
+});
+
+it("sets the xboxOneGames prop as the `value` prop on the MyXboxOneGames component", () => {
+  const props = {
+    loading: false,
+    dispatch: jest.fn(),
+    alert: null,
+    xboxOneGames: [],
+  };
+  const wrapper = shallow(<App {...props} />);
+  const instance = wrapper.instance();
+  instance.componentDidMount();
+  expect(wrapper.state("xboxOneGames")).toEqual(props.xboxOneGames);
+});
+
+it("sets the xbox360Games prop as the `value` prop on the MyXbox360Games component", () => {
+  const props = {
+    loading: false,
+    dispatch: jest.fn(),
+    alert: null,
+    xbox360Games: [],
+  };
+  const wrapper = shallow(<App {...props} />);
+  const instance = wrapper.instance();
+  instance.componentDidMount();
+  expect(wrapper.state("xbox360Games")).toEqual(props.xbox360Games);
 });

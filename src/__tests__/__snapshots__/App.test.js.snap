@@ -31,6 +31,16 @@ exports[`App renders without crashing given the required props 1`] = `
           path="/myInfo"
           render={[Function]}
         />
+        <Route
+          exact={true}
+          path="/myXboxOneGames"
+          render={[Function]}
+        />
+        <Route
+          exact={true}
+          path="/myXbox360Games"
+          render={[Function]}
+        />
       </Switch>
     </div>
   </div>

@@ -21,6 +21,8 @@ const MyInfo = ({
     presenceText,
     presenceDetails,
     detail,
+    gamerScore,
+    modernGamertag,
   },
   loading,
 }) => {
