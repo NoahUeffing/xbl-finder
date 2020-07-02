@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import Xbox360Games from "../games/Xbox360Games";
 import Spinner from "../layout/Spinner";
 import PropTypes from "prop-types";
@@ -8,11 +8,11 @@ const MyXbox360Games = ({ games, loading, player }) => {
   if (loading) {
     return <Spinner />;
   } else {
-    if (typeof games.titles == "undefined") {
+    if (typeof games == "undefined") {
       window.location.replace("http://localhost:3000/");
     }
     return (
-      <Fragment>
+      <div>
         <div className="text-center vertical-middle p-2 card">
           <img
             src={player.gamerpicLargeImagePath}
@@ -41,11 +41,11 @@ const MyXbox360Games = ({ games, loading, player }) => {
           </div>
         </div>
         <div style={userStyle}>
-          {games.titles.map((game) => (
+          {games.map((game) => (
             <Xbox360Games key={game.id} game={game} />
           ))}
         </div>
-      </Fragment>
+      </div>
     );
   }
 };

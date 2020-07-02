@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
 import Users from "./components/users/Users";
 import Search from "./components/users/Search";
+import GameSearch from "./components/games/GameSearch";
 import Alert from "./components/layout/Alert";
 import About from "./components/pages/About";
 import MyInfo from "./components/pages/MyInfo";
@@ -61,8 +62,8 @@ class App extends Component {
       myInfo: selfInfo.data,
       loading: false,
       newProfile: selfProfile.data,
-      xboxOneGames: xboxOne.data,
-      xbox360Games: xbox360.data,
+      xboxOneGames: xboxOne.data.titles,
+      xbox360Games: xbox360.data.titles,
     });
   }
 
@@ -123,6 +124,69 @@ class App extends Component {
 
   clearFriends = () => this.setState({ users: [], loading: false });
 
+  searchGames = async (text) => {
+    this.setState({ loading: true });
+    if (window.location.href.includes("myXboxOneGames")) {
+      const res = await axios.get(
+        `https://xapi.us/v2/${process.env.REACT_APP_XAPI_USER_ID}/xboxonegames`,
+        {
+          headers: { "X-Auth": `${process.env.REACT_APP_XAPI_KEY}` },
+        }
+      );
+      var oneResult = res.data.titles.filter((item) =>
+        item.name.toUpperCase().includes(text.toUpperCase())
+      );
+      this.setState({ xboxOneGames: oneResult, loading: false });
+    }
+    if (window.location.href.includes("myXbox360Games")) {
+      const res = await axios.get(
+        `https://xapi.us/v2/${process.env.REACT_APP_XAPI_USER_ID}/xbox360games`,
+        {
+          headers: { "X-Auth": `${process.env.REACT_APP_XAPI_KEY}` },
+        }
+      );
+      var xbox360Result = res.data.titles.filter((item) =>
+        item.name.toUpperCase().includes(text.toUpperCase())
+      );
+      this.setState({ xbox360Games: xbox360Result, loading: false });
+    }
+  };
+
+  // Show all friends
+  showAllGames = async () => {
+    this.setState({ loading: true });
+
+    if (window.location.href.includes("myXboxOneGames")) {
+      const res = await axios.get(
+        `https://xapi.us/v2/${process.env.REACT_APP_XAPI_USER_ID}/xboxonegames`,
+        {
+          headers: { "X-Auth": `${process.env.REACT_APP_XAPI_KEY}` },
+        }
+      );
+      this.setState({ xboxOneGames: res.data.titles, loading: false });
+    }
+    if (window.location.href.includes("myXbox360Games")) {
+      const res = await axios.get(
+        `https://xapi.us/v2/${process.env.REACT_APP_XAPI_USER_ID}/xbox360games`,
+        {
+          headers: { "X-Auth": `${process.env.REACT_APP_XAPI_KEY}` },
+        }
+      );
+      this.setState({ xbox360Games: res.data.titles, loading: false });
+    }
+  };
+
+  // Clear friends results
+
+  clearGames = () => {
+    if (window.location.href.includes("myXboxOneGames")) {
+      this.setState({ xboxOneGames: [], loading: false });
+    }
+    if (window.location.href.includes("myXbox360Games")) {
+      this.setState({ xbox360Games: [], loading: false });
+    }
+  };
+
   // set alert
   setAlert = (msg, type) => {
     this.setState({ alert: { msg, type } });
@@ -179,22 +243,40 @@ class App extends Component {
                 exact
                 path="/myXboxOneGames"
                 render={(props) => (
-                  <MyXboxOneGames
-                    loading={loading}
-                    games={xboxOneGames}
-                    player={newProfile}
-                  />
+                  <Fragment>
+                    <GameSearch
+                      searchGames={this.searchGames}
+                      showAllGames={this.showAllGames}
+                      clearGames={this.clearGames}
+                      showClear={xboxOneGames.length > 0 ? true : false}
+                      setAlert={this.setAlert}
+                    />
+                    <MyXboxOneGames
+                      loading={loading}
+                      games={xboxOneGames}
+                      player={newProfile}
+                    />
+                  </Fragment>
                 )}
               />
               <Route
                 exact
                 path="/myXbox360Games"
                 render={(props) => (
-                  <MyXbox360Games
-                    loading={loading}
-                    games={xbox360Games}
-                    player={myInfo}
-                  />
+                  <Fragment>
+                    <GameSearch
+                      searchGames={this.searchGames}
+                      showAllGames={this.showAllGames}
+                      clearGames={this.clearGames}
+                      showClear={xbox360Games.length > 0 ? true : false}
+                      setAlert={this.setAlert}
+                    />
+                    <MyXbox360Games
+                      loading={loading}
+                      games={xbox360Games}
+                      player={myInfo}
+                    />
+                  </Fragment>
                 )}
               />
             </Switch>

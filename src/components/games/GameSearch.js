@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-export class Search extends Component {
+export class GameSearch extends Component {
   state = {
     text: "",
   };
 
   static propTypes = {
-    searchFriends: PropTypes.func.isRequired,
-    showAllFriends: PropTypes.func.isRequired,
-    clearFriends: PropTypes.func.isRequired,
     showClear: PropTypes.bool.isRequired,
+    searchGames: PropTypes.func.isRequired,
+    showAllGames: PropTypes.func.isRequired,
+    clearGames: PropTypes.func.isRequired,
     setAlert: PropTypes.func.isRequired,
   };
 
@@ -19,7 +19,7 @@ export class Search extends Component {
     if (this.state.text === "") {
       this.props.setAlert("No search criteria entered", "light");
     } else {
-      this.props.searchFriends(this.state.text);
+      this.props.searchGames(this.state.text);
       //this.setState({ text: "" });
     }
   };
@@ -27,14 +27,14 @@ export class Search extends Component {
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
   render() {
-    const { showClear, clearFriends, showAllFriends } = this.props;
+    const { showClear, showAllGames, clearGames } = this.props;
     return (
       <div>
         <form onSubmit={this.onSubmit} className="form">
           <input
             type="text"
             name="text"
-            placeholder="Search Friends..."
+            placeholder="Search Games..."
             value={this.state.text}
             onChange={this.onChange}
           />
@@ -48,14 +48,14 @@ export class Search extends Component {
           <div>
             <button
               className="btn btn-primary btn-block"
-              onClick={showAllFriends}
+              onClick={showAllGames}
             >
-              Show All Friends
+              Show All Games
             </button>
           </div>
         </div>
         {showClear && (
-          <button className="btn btn-dark btn-block" onClick={clearFriends}>
+          <button className="btn btn-dark btn-block" onClick={clearGames}>
             Clear
           </button>
         )}
@@ -64,4 +64,4 @@ export class Search extends Component {
   }
 }
 
-export default Search;
+export default GameSearch;
