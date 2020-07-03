@@ -40,6 +40,9 @@ const Xbox360Games = ({
         <h4 style={{ paddingLeft: "0.25em", display: "inline" }}>
           {currentAchievements}/{totalAchievements}
         </h4>
+        <h4 style={{ paddingLeft: "1em", display: "inline" }}>
+          {Math.round((currentAchievements / totalAchievements) * 100)}%
+        </h4>
       </div>
     </div>
   );

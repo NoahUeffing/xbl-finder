@@ -204,6 +204,16 @@ class App extends Component {
       xboxOneGames,
       xbox360Games,
     } = this.state;
+    /*if (apiRequestsRemaining === false) {
+      var date = new Date();
+      var minutes = date.getMinutes();
+      return (
+        <h1>
+          Error: API rate limit exceeded. Please try again in {60 - minutes}{" "}
+          minutes.
+        </h1>
+      );
+    }*/
     return (
       <Router>
         <div className="App">
@@ -286,7 +296,6 @@ class App extends Component {
     );
   }
 }
-
 export default App;
 
 export { App };
