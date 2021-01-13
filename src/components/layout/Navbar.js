@@ -30,7 +30,7 @@ const Navbar = ({ icon, title }) => {
 };
 
 Navbar.defaultProps = {
-  title: "Xbox Live Friends",
+  title: "Aardvark Party's Xbox Companion",
   icon: "fab fa-xbox",
 };
 

@@ -7,7 +7,7 @@ exports[`App renders without crashing given the required props 1`] = `
   >
     <Navbar
       icon="fab fa-xbox"
-      title="Xbox Live Friends"
+      title="Aardvark Party's Xbox Companion"
     />
     <div
       className="container"
