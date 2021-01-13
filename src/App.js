@@ -67,6 +67,12 @@ class App extends Component {
     });
   }
 
+  /*checkAPILimit = () => {
+    if ((users.error_code || myInfo.error_code || newProfile.error_code || xboxOneGames.error_code || xbox360Games.error_code) == 403){
+      some code to return an error message that api limit is exceeded
+    }
+  }*/
+
   getMyInfo = async () => {
     this.setState({ loading: true });
 
